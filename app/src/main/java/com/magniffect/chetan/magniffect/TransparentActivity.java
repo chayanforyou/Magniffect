@@ -115,6 +115,7 @@ public class TransparentActivity extends AppCompatActivity {
         webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", "");
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
+        webView.setPadding(0,0,0,0);
 
     }
 
