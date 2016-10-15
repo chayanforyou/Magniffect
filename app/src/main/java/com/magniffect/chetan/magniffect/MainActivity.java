@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showFloatingView() {
         startService(new Intent(getApplicationContext(), FloatingViewService.class));
+        MainActivity.this.finish();
     }
 
     private void hideFloatingView() {

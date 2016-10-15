@@ -11,13 +11,16 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
-import android.widget.ImageView;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.magniffect.chetan.libscreenshotter.ScreenshotCallback;
 import com.magniffect.chetan.libscreenshotter.Screenshotter;
+
+import java.io.ByteArrayOutputStream;
 
 public class TransparentActivity extends AppCompatActivity {
     private static final int REQUEST_MEDIA_PROJECTION = 1;
@@ -28,11 +31,10 @@ public class TransparentActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-    private ImageView demoImageView;
+    int Phonewidth;
+    int Phoneheight;
     private Bitmap screenshotBitmap;
-    int Phonewidth ;
-    int Phoneheight ;
-
+    private WebView webView;
 
 
     public static void verifyStoragePermissions(Activity activity) {
@@ -61,13 +63,9 @@ public class TransparentActivity extends AppCompatActivity {
         Phonewidth = size.x;
         Phoneheight = size.y;
 
+        webView = (WebView) findViewById(R.id.webView);
 
-        demoImageView = (ImageView) findViewById(R.id.zoomImageView);
         takeScreenshot();
-
-
-
-
 
     }
 
@@ -90,14 +88,34 @@ public class TransparentActivity extends AppCompatActivity {
                         public void onScreenshot(Bitmap bitmap) {
                             Log.d(TAG, "onScreenshot called");
                             verifyStoragePermissions(TransparentActivity.this);
-                            demoImageView.setImageBitmap(bitmap);
                             Toast.makeText(TransparentActivity.this, "Screenshot Captured!", Toast.LENGTH_SHORT).show();
-                            screenshotBitmap =bitmap;
+                            screenshotBitmap = bitmap.copy(bitmap.getConfig(), true);
+                            addWebViewtoScreenShot();
                         }
                     });
         } else {
             Toast.makeText(this, "You denied the permission.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void addWebViewtoScreenShot() {
+
+        // Desired Bitmap and the html code, where you want to place it
+        String html = "<html><body><img src='{IMAGE_PLACEHOLDER}' /></body></html>";
+
+        // Convert bitmap to Base64 encoded image for web
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        screenshotBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String imgageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String image = "data:image/png;base64," + imgageBase64;
+
+        // Use image for the img src parameter in your html and load to webview
+        html = html.replace("{IMAGE_PLACEHOLDER}", image);
+        webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", "");
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+
     }
 
 }
