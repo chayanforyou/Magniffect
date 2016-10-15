@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    final private static int OVERLAY_PERMISSION_REQ_CODE = 1;
-    final private static int WRITE_EXTERNAL_STORAGE_REQ_CODE = 2;
+    final private static int OVERLAY_PERMISSION_REQ_CODE = 3;
+    final private static int WRITE_EXTERNAL_STORAGE_REQ_CODE = 4;
 
     private Button mBtnShowView;
     private boolean mIsFloatingViewShow; //Flag variable used to identify if the Floating View is visible or not
