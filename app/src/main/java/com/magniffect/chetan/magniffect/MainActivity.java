@@ -1,10 +1,14 @@
 package com.magniffect.chetan.magniffect;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +16,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    final private static int OVERLAY_PERMISSION_REQ_CODE = 1234;
+    final private static int OVERLAY_PERMISSION_REQ_CODE = 1;
+    final private static int WRITE_EXTERNAL_STORAGE_REQ_CODE = 2;
+
     private Button mBtnShowView;
     private boolean mIsFloatingViewShow; //Flag variable used to identify if the Floating View is visible or not
 
@@ -51,8 +57,25 @@ public class MainActivity extends AppCompatActivity {
                         Uri.parse("package:" + getPackageName()));
                 startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
             }
+
+            if (!isReadStorageAllowed()) {
+                //And finally ask for the permission
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQ_CODE);
+            }
+
         }
     }
+
+    private boolean isReadStorageAllowed() {
+        //Getting the permission status
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        //If permission is granted returning true
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+        //If permission is not granted returning false
+        return false;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -61,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
                 if (!Settings.canDrawOverlays(this)) {
                     // SYSTEM_ALERT_WINDOW permission not granted.
                     Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            if (requestCode == WRITE_EXTERNAL_STORAGE_REQ_CODE) {
+
+                if (!isReadStorageAllowed()) {
+                    //Displaying another toast if permission is not granted
+                    Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
                 }
             }
         }

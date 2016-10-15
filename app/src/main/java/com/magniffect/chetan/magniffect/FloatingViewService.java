@@ -91,8 +91,10 @@ public class FloatingViewService extends Service {
     }
 
     private void performClick() {
+        Intent dialogIntent = new Intent(this, TransparentActivity.class);
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(dialogIntent);
     }
-
 
     public void removeView() {
         if (mImgFloatingView != null) {
