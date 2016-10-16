@@ -15,7 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     final private static int OVERLAY_PERMISSION_REQ_CODE = 3;
     final private static int WRITE_EXTERNAL_STORAGE_REQ_CODE = 4;
 
-    private Button mBtnShowView;
+    private ImageButton serviceEnablerImageButton;
     private CoordinatorLayout coordinatorLayout;
     private boolean mIsFloatingViewShow; //Flag variable used to identify if the Floating View is visible or not
 
@@ -34,22 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         permissionStatusCheck();
 
-        mBtnShowView = (Button) findViewById(R.id.btn_show_floating_view);
+        serviceEnablerImageButton = (ImageButton) findViewById(R.id.serviceEnablerImageButton);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         mIsFloatingViewShow = false;
 
-        mBtnShowView.setOnClickListener(new View.OnClickListener() {
+        serviceEnablerImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mIsFloatingViewShow) {
                     hideFloatingView();
                     mIsFloatingViewShow = false;
-                    mBtnShowView.setText(R.string.show_floating_view);
                 } else {
                     showFloatingView();
                     mIsFloatingViewShow = true;
-                    mBtnShowView.setText(R.string.hide_floating_view);
                 }
             }
         });
