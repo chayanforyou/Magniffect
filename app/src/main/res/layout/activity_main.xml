@@ -4,6 +4,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secondaryText"
     tools:context="com.magniffect.chetan.magniffect.MainActivity">
 
     <FrameLayout
@@ -31,7 +32,8 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="4dp"
-                android:background="@color/secondaryText" />
+                android:background="@color/primaryText"
+                />
 
         </LinearLayout>
 

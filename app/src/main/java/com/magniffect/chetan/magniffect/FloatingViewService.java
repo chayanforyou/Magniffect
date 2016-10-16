@@ -42,7 +42,10 @@ public class FloatingViewService extends Service {
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         mImgFloatingView = new ImageView(this);
-        mImgFloatingView.setImageResource(R.mipmap.ic_launcher);
+        mImgFloatingView.setBackgroundResource(R.drawable.round_button);
+        mImgFloatingView.setImageResource(R.drawable.floating_image);
+        mImgFloatingView.setElevation(5.0f);
+
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
