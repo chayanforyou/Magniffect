@@ -6,17 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.magniffect.chetan.magniffect.TransparentActivity"
     android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:textSize="56dp"
-        android:text="@string/app_name"
-        android:gravity="center"/>
     <WebView
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="wrap_content"
         android:id="@+id/webView"
         android:scrollbarSize="3dp"
         android:scrollbarStyle="insideOverlay"
