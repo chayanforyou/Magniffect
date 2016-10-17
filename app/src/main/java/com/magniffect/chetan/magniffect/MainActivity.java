@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         appnametextView = (TextView) findViewById(R.id.appnametextView);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
-        Typeface customFont = Typeface.createFromAsset(getAssets(),"fonts/Lobster-Regular.ttf");
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         appnametextView.setTypeface(customFont);
 
 
@@ -63,14 +63,55 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void permissionStatusCheck() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setTitle("System Overlay Permission");
+        alertDialog.setMessage("Please allow system overlay permission to enable headup display");
+        alertDialog.setIcon(R.drawable.setting_permission);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+
+            int result = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW);
+            if (result == PackageManager.PERMISSION_GRANTED) {
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, "Permission applied", Snackbar.LENGTH_LONG).setAction("", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        permissionStatusCheck();
+                    }
+                });
+                snackbar.show();
+            } else {
+
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+                    }
+                });
+
+                // Setting Negative "NO" Button
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Permission denied", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                permissionStatusCheck();
+                            }
+                        });
+
+                        snackbar.show();
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialog.show();
+            }
+
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-                alertDialog.setTitle("System Overlay Permission");
-                alertDialog.setMessage("Please allow system overlay permission to enable headup display");
-                alertDialog.setIcon(R.drawable.setting_permission);
 
                 alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
