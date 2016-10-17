@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.media.projection.MediaProjectionManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -67,16 +66,16 @@ public class TransparentActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webView);
 
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 5s = 5000ms
-                takeScreenshot();
-
-            }
-        }, 800);
-
+        takeScreenshot();
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                // Do something after 5s = 5000ms
+//
+//
+//            }
+//        }, 200);
 
     }
 
