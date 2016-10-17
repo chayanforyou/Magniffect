@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton serviceEnablerImageButton;
     private CoordinatorLayout coordinatorLayout;
+    private TextView appnametextView;
     private boolean mIsFloatingViewShow; //Flag variable used to identify if the Floating View is visible or not
 
     @Override
@@ -35,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
         permissionStatusCheck();
 
         serviceEnablerImageButton = (ImageButton) findViewById(R.id.serviceEnablerImageButton);
+        appnametextView = (TextView) findViewById(R.id.appnametextView);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+
+        Typeface customFont = Typeface.createFromAsset(getAssets(),"fonts/Lobster-Regular.ttf");
+        appnametextView.setTypeface(customFont);
+
 
         mIsFloatingViewShow = false;
 
@@ -132,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void showFloatingView() {
         startService(new Intent(getApplicationContext(), FloatingViewService.class));
-        MainActivity.this.finish();
     }
 
     private void hideFloatingView() {
