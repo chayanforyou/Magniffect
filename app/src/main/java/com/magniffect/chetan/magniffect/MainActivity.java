@@ -9,13 +9,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     final private static int WRITE_EXTERNAL_STORAGE_REQ_CODE = 4;
 
     private ImageButton serviceEnablerImageButton;
-    private CoordinatorLayout coordinatorLayout;
+    private FrameLayout frameLayout;
     private TextView appnametextView;
     private boolean mIsFloatingViewShow; //Flag variable used to identify if the Floating View is visible or not
 
@@ -35,15 +35,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initViews();
+
         permissionStatusCheck();
 
-        serviceEnablerImageButton = (ImageButton) findViewById(R.id.serviceEnablerImageButton);
-        appnametextView = (TextView) findViewById(R.id.appnametextView);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-
-        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-        appnametextView.setTypeface(customFont);
-
+        applyCustomFonts();
 
         mIsFloatingViewShow = false;
 
@@ -60,7 +56,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void applyCustomFonts() {
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        appnametextView.setTypeface(customFont);
+    }
+
+    private void initViews() {
+        serviceEnablerImageButton = (ImageButton) findViewById(R.id.serviceEnablerImageButton);
+        appnametextView = (TextView) findViewById(R.id.appnametextView);
+        frameLayout = (FrameLayout) findViewById(R.id.main_frameLayout);
     }
 
 
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             int result = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW);
             if (result == PackageManager.PERMISSION_GRANTED) {
-                Snackbar snackbar = Snackbar.make(coordinatorLayout, "Permission applied", Snackbar.LENGTH_LONG).setAction("", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(frameLayout, "Permission applied", Snackbar.LENGTH_LONG).setAction("", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         permissionStatusCheck();
@@ -94,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 // Setting Negative "NO" Button
                 alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Permission denied", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
+                        Snackbar snackbar = Snackbar.make(frameLayout, "Permission denied", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 permissionStatusCheck();
@@ -110,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
 
@@ -124,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 // Setting Negative "NO" Button
                 alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Permission denied", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
+                        Snackbar snackbar = Snackbar.make(frameLayout, "Permission denied", Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 permissionStatusCheck();
@@ -172,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!isReadStorageAllowed()) {
                     //Displaying another toast if permission is not granted
-                    Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -190,6 +196,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        this.finish();
     }
 }

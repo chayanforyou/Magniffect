@@ -1,74 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/main_frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.magniffect.chetan.magniffect.MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryText">
+        android:layout_gravity="center|bottom"
+        android:background="@color/primaryText"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:scaleType="center"
+            android:src="@drawable/magniffecticon">
 
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        </ImageView>
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="520dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
             android:elevation="6dp"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:orientation="vertical">
 
-            <ImageView
+            <View
+                android:layout_marginBottom="24dp"
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="center"
-                android:src="@drawable/magniffecticon">
-
-            </ImageView>
+                android:layout_height="5dp"
+                android:background="@color/colorAccent" />
 
             <TextView
-                android:layout_gravity="bottom"
                 android:id="@+id/appnametextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:elevation="5dp"
                 android:layout_marginLeft="32dp"
+                android:elevation="5dp"
                 android:gravity="left"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="62sp" />
 
-            <View
-                android:layout_gravity="bottom"
-                android:layout_width="fill_parent"
-                android:layout_height="5dp"
-                android:background="@color/colorAccent" />
+            <ImageButton
+                android:id="@+id/serviceEnablerImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/round_button"
+                android:elevation="8dp"
+                android:src="@drawable/serive_enable" />
 
         </FrameLayout>
 
 
-        <ImageButton
-            android:id="@+id/serviceEnablerImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="480dp"
-            android:background="@drawable/round_button"
-            android:elevation="8dp"
-            android:src="@drawable/serive_enable" />
-
-    </FrameLayout>
+    </LinearLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</FrameLayout>
