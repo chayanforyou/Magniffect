@@ -15,7 +15,9 @@ import android.widget.Toast;
  * Created by chetan on 15-10-2016.
  */
 
+
 public class FloatingViewService extends Service {
+
 
     private WindowManager mWindowManager;
     private ImageView mImgFloatingView;
@@ -73,8 +75,7 @@ public class FloatingViewService extends Service {
                         initialTouchY = event.getRawY();
                         return true;
                     case MotionEvent.ACTION_UP:
-                        if( (Math.abs(initialTouchX - event.getRawX())<5) && (Math.abs(initialTouchY - event.getRawY())<5) )
-                        {
+                        if ((Math.abs(initialTouchX - event.getRawX()) < 5) && (Math.abs(initialTouchY - event.getRawY()) < 5)) {
                             performClick();
                         }
                         //Toast.makeText(FloatingViewService.this, "you moved the head", Toast.LENGTH_SHORT).show();

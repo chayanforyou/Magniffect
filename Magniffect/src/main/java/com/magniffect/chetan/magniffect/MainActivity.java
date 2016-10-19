@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     final private static int OVERLAY_PERMISSION_REQ_CODE = 3;
     final private static int WRITE_EXTERNAL_STORAGE_REQ_CODE = 4;
-
     private ImageButton serviceEnablerImageButton;
     private FrameLayout frameLayout;
     private TextView appnametextView;
-    private boolean mIsFloatingViewShow; //Flag variable used to identify if the Floating View is visible or not
+    private boolean mIsFloatingViewShow = false; //Flag variable used to identify if the Floating View is visible or not
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         applyCustomFonts();
 
-        mIsFloatingViewShow = false;
 
         serviceEnablerImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,13 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
             int result = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW);
             if (result == PackageManager.PERMISSION_GRANTED) {
-                Snackbar snackbar = Snackbar.make(frameLayout, "Permission applied", Snackbar.LENGTH_LONG).setAction("", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        permissionStatusCheck();
-                    }
-                });
-                snackbar.show();
+
             } else {
 
                 alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

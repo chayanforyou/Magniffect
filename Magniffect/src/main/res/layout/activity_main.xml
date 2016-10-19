@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center|bottom"
         android:background="@color/primaryText"
         android:orientation="vertical"
         android:weightSum="1">
@@ -18,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.7"
-            android:scaleType="center"
+            android:padding="40dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/magniffecticon">
 
         </ImageView>
@@ -27,17 +27,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
-            android:elevation="6dp"
-            android:orientation="vertical">
+            android:layout_marginBottom="16dp"
+            android:elevation="6dp">
 
             <View
-                android:layout_marginBottom="24dp"
-                android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
+                android:layout_gravity="center"
+
                 android:background="@color/colorAccent" />
 
             <TextView
+                android:layout_marginBottom="28dp"
+                android:layout_gravity="center"
                 android:id="@+id/appnametextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,9 +54,8 @@
                 android:id="@+id/serviceEnablerImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="right|center"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/round_button"
                 android:elevation="8dp"
                 android:src="@drawable/serive_enable" />
