@@ -186,4 +186,10 @@ public class MainActivity extends AppCompatActivity {
     private void hideFloatingView() {
         stopService(new Intent(getApplicationContext(), FloatingViewService.class));
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.finish();
+    }
 }
